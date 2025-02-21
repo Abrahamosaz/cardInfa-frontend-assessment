@@ -2,20 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "satoshi-light";
+  src: url("/fonts/Satoshi-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "satoshi-medium";
+  src: url("/fonts/Satoshi-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "satoshi-regular";
+  src: url("/fonts/Satoshi-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "satoshi-bold";
+  src: url("/fonts/Satoshi-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "satoshi-black";
+  src: url("/fonts/Satoshi-Black.ttf") format("truetype");
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  font-family: "satoshi-regular", sans-serif !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+* {
+  margin: 0;
+  padding: 0;
 }

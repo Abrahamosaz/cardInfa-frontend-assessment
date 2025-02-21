@@ -12,6 +12,13 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        regular: ["satoshi-regular", "sans-serif"],
+        light: ["satoshi-light", "sans-serif"],
+        medium: ["satoshi-medium", "sans-serif"],
+        bold: ["satoshi-bold", "sans-serif"],
+        black: ["satoshi-black", "sans-serif"],
+      },
     },
   },
   plugins: [],
