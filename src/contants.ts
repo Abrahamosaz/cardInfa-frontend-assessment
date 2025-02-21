@@ -1,5 +1,5 @@
 import { active, inactive } from "@/public/icons";
-import { dataProps } from "./type";
+import { CardProfiledataProps, CardRequestdataProps } from "./type";
 
 type sideBarContentProps = {
   id: number;
@@ -96,7 +96,7 @@ export const siderBarContent: sideBarContentProps[] = [
   },
 ];
 
-export const CardProfileData: dataProps[] = [
+export const CardProfileData: CardProfiledataProps[] = [
   {
     id: 1,
     name: "Verve-1",
@@ -128,5 +128,35 @@ export const CardProfileData: dataProps[] = [
     expiration: 40,
     binPrefix: 506080,
     createdAt: "2024-01-04",
+  },
+];
+
+export const cardRequestData: CardRequestdataProps[] = [
+  {
+    id: 1,
+    branch: "Branch 1",
+    initiator: "User 1",
+    quantity: 100,
+    batch: "Batch 1",
+    dateRequested: "2024-01-01",
+    status: "Ready",
+  },
+  {
+    id: 2,
+    branch: "Branch 2",
+    initiator: "User 2",
+    quantity: 200,
+    batch: "Batch 2",
+    dateRequested: "2024-01-02",
+    status: "In Progress",
+  },
+  {
+    id: 3,
+    branch: "Branch 3",
+    initiator: "User 3",
+    quantity: 300,
+    batch: "Batch 3",
+    dateRequested: "2024-01-03",
+    status: "Pending",
   },
 ];

@@ -2,25 +2,18 @@
 
 import { SearchIcon } from "@/public/icons";
 import React, { useEffect, useMemo, useState } from "react";
-import { IoIosAdd } from "react-icons/io";
 import Image from "next/image";
 import CustomTable from "@/components/CustomTable";
-import { CardProfileColumns } from "./data";
-import { usePathname, useRouter } from "next/navigation";
-import useCardProfileStore from "@/store/card.store";
-import { dataProps } from "@/type";
+import { CardRequestdataProps } from "@/type";
+import { CardRequestColumns } from "../data";
+import { cardRequestData } from "@/contants";
 
-const CardProfile = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const { cardProfiles } = useCardProfileStore();
-
-  const [currentItems, setCurrentItems] = useState<dataProps[]>([]);
+const CardRequest = () => {
+  const [currentItems, setCurrentItems] = useState<CardRequestdataProps[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 5;
 
-  const columns = useMemo(() => CardProfileColumns, []);
+  const columns = useMemo(() => CardRequestColumns, []);
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
@@ -31,13 +24,13 @@ const CardProfile = () => {
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     // Update the current items
-    setCurrentItems(cardProfiles.slice(startIndex, endIndex));
-  }, [currentPage, cardProfiles]);
+    setCurrentItems(cardRequestData.slice(startIndex, endIndex));
+  }, [currentPage, itemsPerPage]);
 
   return (
     <div className="w-full flex flex-col gap-4">
       {/* search  */}
-      <div className="flex items-center gap-4 justify-between border-y py-3.5 border-[#98A2B3]">
+      <div className="border-y py-3.5 border-[#98A2B3]">
         <div className="max-w-[180px] md:min-w-[300px] lg:min-w-[400px] flex items-center gap-2 md:gap-4 py-3 px-4 rounded-lg bg-[#FFFFFF] border border-[#D0D5DD]">
           <Image
             className="w-4 h-4 md:w-5 md:h-5"
@@ -47,22 +40,15 @@ const CardProfile = () => {
           <input
             className="w-full outline-none border-none bg-transparent placeholder:text-xs md:placeholder:text-base"
             type="text"
-            placeholder="Search by card name"
+            placeholder="Search by branch"
           />
-        </div>
-        <div
-          onClick={() => router.push(`${pathname}/create-profile`)}
-          className="cursor-pointer py-3 px-4 flex items-center text-white bg-[#014DAF] rounded-[4px]"
-        >
-          <IoIosAdd className="text-white w-6 h-6" />
-          <p className="text-xs sm:text-sm md:text-base">Add Profile</p>
         </div>
       </div>
 
       <CustomTable
         columns={columns}
         data={currentItems}
-        pageCount={Math.ceil(cardProfiles.length / itemsPerPage)}
+        pageCount={Math.ceil(cardRequestData.length / itemsPerPage)}
         currentPage={currentPage}
         onPageChange={onPageChange}
         headerStyle="bg-[#F9FAFB] border border-[#EAECF0] text-[#475467]"
@@ -72,4 +58,4 @@ const CardProfile = () => {
   );
 };
 
-export default CardProfile;
+export default CardRequest;

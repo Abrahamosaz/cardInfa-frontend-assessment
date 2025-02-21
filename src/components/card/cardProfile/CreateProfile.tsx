@@ -5,13 +5,13 @@ import React, { useMemo, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import * as yup from "yup";
-import CardCustomInput from "./CardCustomInput";
+import CardCustomInput from "../CardCustomInput";
 import { IoIosAdd } from "react-icons/io";
-import CustomTable from "../CustomTable";
-import AddFeeModal from "../modals/AddFeeModal";
+import CustomTable from "../../CustomTable";
+import AddFeeModal from "../../modals/AddFeeModal";
 import toast from "react-hot-toast";
 import classNames from "classnames";
-import useCardProfileStore from "@/store/card.store";
+import useCardProfileStore from "@/store/cardProfile.store";
 import { useRouter } from "next/navigation";
 
 // Define the type for select options

@@ -1,23 +1,23 @@
 import { create } from "zustand";
-import { dataProps as CardProfileProps } from "@/type";
+import { CardProfiledataProps } from "@/type";
 import { CardProfileData } from "@/contants";
 
 interface States {
-  cardProfiles: CardProfileProps[];
+  cardProfiles: CardProfiledataProps[];
 }
 
 interface Actions {
-  addCardProfile: (profile: CardProfileProps) => void;
-  editCardProfile: (profile: CardProfileProps) => void;
+  addCardProfile: (profile: CardProfiledataProps) => void;
+  editCardProfile: (profile: CardProfiledataProps) => void;
   deleteCardProfile: (id: number) => void;
 }
 
 const useCardProfileStore = create<States & Actions>((set) => ({
   cardProfiles: [...CardProfileData],
-  addCardProfile: (profile: CardProfileProps) => {
+  addCardProfile: (profile: CardProfiledataProps) => {
     set((state) => ({ cardProfiles: [...state.cardProfiles, profile] }));
   },
-  editCardProfile: (profile: CardProfileProps) => {
+  editCardProfile: (profile: CardProfiledataProps) => {
     set((state) => ({
       cardProfiles: state.cardProfiles.map((p) =>
         p.id === profile.id ? profile : p

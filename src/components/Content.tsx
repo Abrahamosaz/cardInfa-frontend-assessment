@@ -32,12 +32,15 @@ const Content = ({ children }: { children: React.ReactNode }) => {
           icon: inactive.CardRequest,
           label: "Card Request",
         };
-
       case "/create-profile":
-      case "/card-profile/create-profile":
         return {
           icon: inactive.CardProfile,
           label: "Create Profile",
+        };
+      case "/request-details":
+        return {
+          icon: inactive.CardRequest,
+          label: "Request Details",
         };
       default:
         return {};
@@ -79,7 +82,7 @@ const Content = ({ children }: { children: React.ReactNode }) => {
             <div className="flex items-center gap-4">
               <Image
                 className="w-6 h-6"
-                src={getIconAndLabel().icon}
+                src={getIconAndLabel(`/${paths[0]}`).icon}
                 alt="icon"
               />
               {paths?.length > 1 && (
@@ -91,7 +94,7 @@ const Content = ({ children }: { children: React.ReactNode }) => {
                   "font-semibold": paths.length === 1,
                 })}
               >
-                {getIconAndLabel().label}
+                {getIconAndLabel(`/${paths[0]}`).label}
               </p>
             </div>
 

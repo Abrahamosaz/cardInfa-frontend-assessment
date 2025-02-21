@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { DeleteIcon, EditIcon } from "@/public/icons";
-import useCardProfileStore from "@/store/card.store";
-import { dataProps } from "@/type";
-import ConfirmDeleteModal from "../modals/ConfirmDeleteModal";
+import useCardProfileStore from "@/store/cardProfile.store";
+import { CardProfiledataProps } from "@/type";
+import ConfirmDeleteModal from "../../modals/ConfirmDeleteModal";
 import toast from "react-hot-toast";
 
-const ActionCell = ({ data }: { data: dataProps }) => {
+const CardProfileActionCell = ({ data }: { data: CardProfiledataProps }) => {
   const { deleteCardProfile } = useCardProfileStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -40,4 +40,4 @@ const ActionCell = ({ data }: { data: dataProps }) => {
   );
 };
 
-export default ActionCell;
+export default CardProfileActionCell;
