@@ -22,7 +22,7 @@ type CardSchemeOption = {
 
 type FeeDataProps = {
   name: string;
-  value: number;
+  value: number | null;
   frequency: string | undefined;
   currency: string;
   time: string;
@@ -118,7 +118,7 @@ const AddFeeComponent = ({
       : [
           {
             name: "",
-            value: 0,
+            value: null,
             frequency: undefined,
             currency: "",
             time: "",
@@ -144,7 +144,7 @@ const AddFeeComponent = ({
         <div className="w-full mb-10">
           <CustomTable
             columns={columns}
-            data={data}
+            data={data as FeeDataProps[]}
             showPagination={false}
             headerStyle="bg-[#F9FAFB] border border-[#EAECF0] text-[#475467]"
             cellStyle="border border-[#EAECF0] text-[#475467]"
