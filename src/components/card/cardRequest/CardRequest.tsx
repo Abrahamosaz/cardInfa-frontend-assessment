@@ -6,13 +6,14 @@ import Image from "next/image";
 import CustomTable from "@/components/CustomTable";
 import { CardRequestdataProps } from "@/type";
 import { CardRequestColumns } from "../data";
-import { cardRequestData } from "@/contants";
+import useCardRequestStore from "@/store/cardRequest.store";
 
 const CardRequest = () => {
   const [currentItems, setCurrentItems] = useState<CardRequestdataProps[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 5;
 
+  const { cardRequestData } = useCardRequestStore();
   const columns = useMemo(() => CardRequestColumns, []);
 
   const onPageChange = (page: number) => {
@@ -25,7 +26,7 @@ const CardRequest = () => {
     const endIndex = startIndex + itemsPerPage;
     // Update the current items
     setCurrentItems(cardRequestData.slice(startIndex, endIndex));
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage, itemsPerPage, cardRequestData]);
 
   return (
     <div className="w-full flex flex-col gap-4">

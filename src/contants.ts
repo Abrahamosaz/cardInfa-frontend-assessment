@@ -1,4 +1,12 @@
-import { active, inactive } from "@/public/icons";
+import {
+  AcknowledgedIcon,
+  active,
+  DispatchIcon,
+  inactive,
+  InProgressIcon,
+  NoteIcon,
+  ReadyIcon,
+} from "@/public/icons";
 import { CardProfiledataProps, CardRequestdataProps } from "./type";
 
 type sideBarContentProps = {
@@ -160,3 +168,32 @@ export const cardRequestData: CardRequestdataProps[] = [
     status: "Pending",
   },
 ];
+
+export const RequestCardActions: { id: number; icon: string; label: string }[] =
+  [
+    {
+      id: 1,
+      icon: NoteIcon,
+      label: "Download for Production",
+    },
+    {
+      id: 2,
+      icon: InProgressIcon,
+      label: "Mark as In Progress",
+    },
+    {
+      id: 3,
+      icon: ReadyIcon,
+      label: "Mark as Ready",
+    },
+    {
+      id: 4,
+      icon: DispatchIcon,
+      label: "Send to Dispatch",
+    },
+    {
+      id: 5,
+      icon: AcknowledgedIcon,
+      label: "Mark as Acknowledged",
+    },
+  ];

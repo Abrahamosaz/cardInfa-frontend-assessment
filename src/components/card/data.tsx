@@ -1,4 +1,4 @@
-import { ColumnDef, Row } from "@tanstack/react-table";
+import { CellContext, ColumnDef, Row } from "@tanstack/react-table";
 import CardProfileActionCell from "./cardProfile/CardProfileActionCell";
 import { CardProfiledataProps, CardRequestdataProps } from "@/type";
 import CardRequestActionCell from "./cardRequest/CardRequestActionCell";
@@ -16,8 +16,12 @@ export const CardProfileColumns: ColumnDef<CardProfiledataProps>[] = [
   {
     header: "Expiration",
     accessorKey: "expiration",
-    cell: (props: any) => {
-      return <div className="text-center">{`${props.getValue()} months`}</div>;
+    cell: (props: CellContext<CardProfiledataProps, unknown>) => {
+      return (
+        <div className="text-center">{`${
+          props.getValue() as number
+        } months`}</div>
+      );
     },
   },
   {
@@ -27,8 +31,8 @@ export const CardProfileColumns: ColumnDef<CardProfiledataProps>[] = [
   {
     header: "Date Created",
     accessorKey: "createdAt",
-    cell: (props: any) => {
-      const date = new Date(props.getValue());
+    cell: (props: CellContext<CardProfiledataProps, unknown>) => {
+      const date = new Date(props.getValue() as string);
       return date.toLocaleDateString();
     },
   },
@@ -61,10 +65,11 @@ export const CardRequestColumns: ColumnDef<CardRequestdataProps>[] = [
   {
     header: "Date Requested",
     accessorKey: "dateRequested",
-    cell: (props: any) => {
-      const date = props.getValue() ? new Date(props.getValue()) : new Date();
+    cell: (props: CellContext<CardRequestdataProps, unknown>) => {
+      const date = props.getValue()
+        ? new Date(props.getValue() as string)
+        : new Date();
 
-      // Format date as DD/MM/YYYY HH:mm
       const formattedDate = date.toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "2-digit",
@@ -89,11 +94,13 @@ export const CardRequestColumns: ColumnDef<CardRequestdataProps>[] = [
         <div
           className={classNames({
             "text-center p-2 px-4 rounded-3xl border w-fit": true,
-            "border-[#ABEFC6] bg-[#ECFDF3]": row.original.status === "Ready",
-            "border-[#FEDF89] bg-[#FFFAEB]":
+            "border-[#ABEFC6] bg-[#ECFDF3] text-[#067647]":
+              row.original.status === "Ready",
+            "border-[#FEDF89] bg-[#FFFAEB] text-[#B54708]":
               row.original.status === "In Progress",
-            "border-[#EAECF0] bg-[#F9FAFB]": row.original.status === "Pending",
-            "border-[#B2DDFF] bg-[#EFF8FF]":
+            "border-[#EAECF0] bg-[#F9FAFB] text-[#344054]":
+              row.original.status === "Pending",
+            "border-[#B2DDFF] bg-[#EFF8FF] text-[#175CD3]":
               row.original.status === "Acknowledged",
           })}
         >

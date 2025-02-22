@@ -7,14 +7,21 @@ import useCardProfileStore from "@/store/cardProfile.store";
 import { CardProfiledataProps } from "@/type";
 import ConfirmDeleteModal from "../../modals/ConfirmDeleteModal";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const CardProfileActionCell = ({ data }: { data: CardProfiledataProps }) => {
-  const { deleteCardProfile } = useCardProfileStore();
+  const { deleteCardProfile, setCurrentProfile } = useCardProfileStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const router = useRouter();
 
   const handleDelete = () => {
     deleteCardProfile(data.id);
     toast.success("Card profile deleted successfully");
+  };
+
+  const handleOnEdit = () => {
+    setCurrentProfile(data);
+    router.push(`/card-profile/edit-profile`);
   };
 
   return (
@@ -26,7 +33,12 @@ const CardProfileActionCell = ({ data }: { data: CardProfiledataProps }) => {
           alt="delete"
           onClick={() => setIsDeleteModalOpen(true)}
         />
-        <Image className="cursor-pointer" src={EditIcon} alt="edit" />
+        <Image
+          onClick={handleOnEdit}
+          className="cursor-pointer"
+          src={EditIcon}
+          alt="edit"
+        />
       </div>
 
       <ConfirmDeleteModal

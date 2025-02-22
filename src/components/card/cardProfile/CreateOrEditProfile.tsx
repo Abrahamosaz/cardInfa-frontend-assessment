@@ -22,12 +22,12 @@ type CardSchemeOption = {
 
 type FeeDataProps = {
   name: string;
-  value: string;
-  frequency: string;
+  value: number;
+  frequency: string | undefined;
   currency: string;
   time: string;
-  accountPaid: string;
-  account: string;
+  accountPaid: string | undefined;
+  account: string | undefined;
 };
 
 const cardSchemeOptions: CardSchemeOption[] = [
@@ -118,12 +118,12 @@ const AddFeeComponent = ({
       : [
           {
             name: "",
-            value: "",
-            frequency: "",
+            value: 0,
+            frequency: undefined,
             currency: "",
             time: "",
-            accountPaid: "",
-            account: "",
+            accountPaid: undefined,
+            account: undefined,
           },
         ];
   }, [fees]);
@@ -155,21 +155,40 @@ const AddFeeComponent = ({
   );
 };
 
-const CreateProfile = () => {
+const CreateOrEditProfile = ({
+  type = "create",
+}: {
+  type?: "create" | "edit";
+}) => {
   const [isAddFeeModalOpen, setIsAddFeeModalOpen] = useState(false);
   const [fees, setFees] = useState<FeeDataProps[]>([]);
 
   const router = useRouter();
 
+  const { addCardProfile, cardProfiles, editCardProfile, currentProfile } =
+    useCardProfileStore();
+
   const form = useForm<CreateProfileFormData>({
     defaultValues: {
-      cardName: "",
-      cardScheme: {},
-      expiration: 0,
-      binPrefix: 0,
-      currency: "",
-      description: "",
-      branchBlacklist: {},
+      cardName: type === "edit" ? currentProfile?.name : "",
+      cardScheme:
+        type === "edit"
+          ? {
+              value: currentProfile?.cardScheme,
+              label: currentProfile?.cardScheme,
+            }
+          : {},
+      expiration: type === "edit" ? currentProfile?.expiration : 0,
+      binPrefix: type === "edit" ? currentProfile?.binPrefix : 0,
+      currency: type === "edit" ? currentProfile?.currency : "",
+      description: type === "edit" ? currentProfile?.description : "",
+      branchBlacklist:
+        type === "edit"
+          ? {
+              value: currentProfile?.branchBlacklist,
+              label: currentProfile?.branchBlacklist,
+            }
+          : {},
     },
     resolver: yupResolver(schema),
     mode: "onBlur",
@@ -178,9 +197,15 @@ const CreateProfile = () => {
   const { register, handleSubmit, formState, control } = form;
   const { errors, isValid } = formState;
 
-  const { addCardProfile, cardProfiles } = useCardProfileStore();
-
-  const handleAddFee = (feeData: any) => {
+  const handleAddFee = (feeData: {
+    feeName: string;
+    value: number;
+    feeFrequency?: string;
+    currency: string;
+    accountPaid?: string;
+    account?: string;
+    feeImpact?: string;
+  }) => {
     setFees([
       ...fees,
       {
@@ -202,16 +227,44 @@ const CreateProfile = () => {
         ? Math.max(...cardProfiles.map((profile) => profile.id)) + 1
         : 1;
 
-    addCardProfile({
-      id: nextId,
-      name: data.cardName,
-      currency: data.currency,
-      binPrefix: data.binPrefix,
-      expiration: data.expiration,
-      createdAt: new Date().toISOString(),
-    });
+    if (type === "create") {
+      addCardProfile({
+        id: nextId,
+        name: data.cardName,
+        currency: data.currency,
+        binPrefix: data.binPrefix,
+        expiration: data.expiration,
+        createdAt: new Date().toISOString(),
+        cardScheme: data.cardScheme.value,
+        branchBlacklist: data.branchBlacklist
+          ? data.branchBlacklist?.value
+          : "",
+        description: data.description,
+      });
 
-    toast.success("Card Profile created successfully");
+      toast.success("Card Profile created successfully");
+    } else {
+      if (!currentProfile?.id) {
+        toast.error("Card Profile not found");
+        return;
+      }
+
+      editCardProfile({
+        id: currentProfile?.id,
+        name: data.cardName,
+        currency: data.currency,
+        binPrefix: data.binPrefix,
+        expiration: data.expiration,
+        createdAt: new Date().toISOString(),
+        cardScheme: data.cardScheme.value,
+        branchBlacklist: data.branchBlacklist
+          ? data.branchBlacklist?.value
+          : "",
+        description: data.description,
+      });
+
+      toast.success("Card Profile edited successfully");
+    }
     router.back();
   };
 
@@ -268,7 +321,7 @@ const CreateProfile = () => {
                           placeholder="Select Card Scheme"
                           className="w-full"
                           classNames={{
-                            control: (state) =>
+                            control: () =>
                               `bg-transparent border ${
                                 errors.cardScheme
                                   ? "border-red-500"
@@ -335,7 +388,7 @@ const CreateProfile = () => {
                           placeholder="Select Branch Blacklist"
                           className="w-full"
                           classNames={{
-                            control: (state) =>
+                            control: () =>
                               `bg-transparent border ${
                                 errors.branchBlacklist
                                   ? "border-red-500"
@@ -369,7 +422,7 @@ const CreateProfile = () => {
           })}
           type="submit"
         >
-          Create Profile
+          {type === "create" ? "Create Profile" : "Update Profile"}
         </button>
       </form>
 
@@ -382,4 +435,4 @@ const CreateProfile = () => {
   );
 };
 
-export default CreateProfile;
+export default CreateOrEditProfile;

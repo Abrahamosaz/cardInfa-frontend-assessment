@@ -26,7 +26,7 @@ const CustomTable = <T,>({
   pageCount,
   currentPage,
   onPageChange = () => {},
-  isLoading = false,
+  // isLoading = false,
   cellStyle = "",
   headerStyle = "",
   showPagination = true,

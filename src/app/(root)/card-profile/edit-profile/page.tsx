@@ -2,15 +2,15 @@ import Container from "@/components/Container";
 import CreateOrEditProfile from "@/components/card/cardProfile/CreateOrEditProfile";
 import React from "react";
 
-const CreateProfilePage = () => {
+const EditProfilePage = () => {
   return (
     <Container
-      title="Create Profile"
+      title="Edit Profile"
       subtitle="Fill in profile details and add card fee."
     >
-      <CreateOrEditProfile />
+      <CreateOrEditProfile type="edit" />
     </Container>
   );
 };
 
-export default CreateProfilePage;
+export default EditProfilePage;

@@ -1,4 +1,5 @@
 import Content from "@/components/Content";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import SideBar from "@/components/sidebar/SideBar";
 
 export default function PageLayout({
@@ -9,7 +10,10 @@ export default function PageLayout({
   return (
     <div className="relative flex w-full h-screen overflow-hidden">
       <SideBar />
-      <Content>{children}</Content>
+      <Content>
+        <ScrollToTop />
+        {children}
+      </Content>
     </div>
   );
 }

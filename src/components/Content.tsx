@@ -42,6 +42,11 @@ const Content = ({ children }: { children: React.ReactNode }) => {
           icon: inactive.CardRequest,
           label: "Request Details",
         };
+      case "/edit-profile":
+        return {
+          icon: inactive.CardProfile,
+          label: "Edit Profile",
+        };
       default:
         return {};
     }
@@ -134,7 +139,7 @@ const Content = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
 
-      <div className="w-full h-full overflow-y-auto no-scrollbar p-6 bg-[#F8FBFF]">
+      <div className="w-full overflow-y-auto no-scrollbar p-6 bg-[#F8FBFF]">
         {children}
       </div>
     </div>

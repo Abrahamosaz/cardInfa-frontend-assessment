@@ -23,6 +23,22 @@ import ActiveCardRequest from "./active/cardRequest.svg";
 import CancelIcon from "./cancel.svg";
 import PlusIcon from "./plus.svg";
 
+import cardShield from "./dashboard/credit-card-shield.svg";
+import card from "./dashboard/credit-card-02.svg";
+import cardEdit from "./dashboard/credit-card-edit.svg";
+import cardAdd from "./dashboard/credit-card-plus.svg";
+
+import activeCardStat from "./dashboard/active-card-stat.svg";
+import cardStat from "./dashboard/card-stat.svg";
+import pendingStat from "./dashboard/pending-stat.svg";
+import revenueStat from "./dashboard/revenue-stat.svg";
+import NoteIcon from "./note.svg";
+import ReadyIcon from "./ready.svg";
+import InProgressIcon from "./progress.svg";
+import AcknowledgedIcon from "./acknowledged.svg";
+import DispatchIcon from "./dispatch.svg";
+import SuccessIcon from "./success.svg";
+
 const inactive = {
   Account,
   AuthorizationList,
@@ -45,9 +61,22 @@ const active = {
   ActiveCardRequest,
 };
 
+const dashboard = {
+  cardShield,
+  card,
+  cardEdit,
+  cardAdd,
+
+  activeCardStat,
+  cardStat,
+  pendingStat,
+  revenueStat,
+};
+
 export {
   inactive,
   active,
+  dashboard,
   Logout,
   BellIcon,
   Avatar,
@@ -56,4 +85,10 @@ export {
   EditIcon,
   CancelIcon,
   PlusIcon,
+  NoteIcon,
+  ReadyIcon,
+  InProgressIcon,
+  AcknowledgedIcon,
+  DispatchIcon,
+  SuccessIcon,
 };

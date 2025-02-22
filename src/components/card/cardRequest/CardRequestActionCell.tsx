@@ -2,19 +2,18 @@
 
 import useCardRequestStore from "@/store/cardRequest.store";
 import { CardRequestdataProps } from "@/type";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const CardRequestActionCell = ({ data }: { data: CardRequestdataProps }) => {
   const router = useRouter();
-  const pathname = usePathname();
 
   const { setCurrentCardRequest } = useCardRequestStore();
 
   const handleView = () => {
     console.log("data", data);
     setCurrentCardRequest(data);
-    router.push(`${pathname}/request-details`);
+    router.push(`/card-request/request-details`);
   };
 
   return (
