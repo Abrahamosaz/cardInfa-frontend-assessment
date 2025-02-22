@@ -12,7 +12,7 @@ export type CardRequestdataProps = {
   branch: string;
   initiator: string;
   quantity: number;
-  batch: string;
+  batch: number;
   dateRequested: string;
   status: string;
 };
