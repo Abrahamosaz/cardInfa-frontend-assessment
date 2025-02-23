@@ -15,6 +15,7 @@ const CardProfile = () => {
   const pathname = usePathname();
 
   const { cardProfiles } = useCardProfileStore();
+  const [searchString, setSearchString] = useState("");
 
   const [currentItems, setCurrentItems] = useState<CardProfiledataProps[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -27,12 +28,22 @@ const CardProfile = () => {
   };
 
   useEffect(() => {
-    // Calculate the start and end index for the current page
+    // First filter the data based on search string
+
+    let filteredProfiles = cardProfiles;
+    if (searchString) {
+      filteredProfiles = cardProfiles.filter((profile) =>
+        profile.name.toLowerCase().includes(searchString.toLowerCase())
+      );
+    }
+
+    // Then calculate the start and end index for the current page
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    // Update the current items
-    setCurrentItems(cardProfiles.slice(startIndex, endIndex));
-  }, [currentPage, cardProfiles]);
+
+    // Update the current items with filtered and paginated data
+    setCurrentItems(filteredProfiles.slice(startIndex, endIndex));
+  }, [currentPage, cardProfiles, searchString]);
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -45,6 +56,8 @@ const CardProfile = () => {
             alt="search"
           />
           <input
+            value={searchString}
+            onChange={(e) => setSearchString(e.target.value)}
             className="w-full outline-none border-none bg-transparent placeholder:text-xs md:placeholder:text-base"
             type="text"
             placeholder="Search by card name"

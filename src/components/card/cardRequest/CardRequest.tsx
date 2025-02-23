@@ -11,6 +11,7 @@ import useCardRequestStore from "@/store/cardRequest.store";
 const CardRequest = () => {
   const [currentItems, setCurrentItems] = useState<CardRequestdataProps[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchString, setSearchString] = useState("");
   const itemsPerPage = 5;
 
   const { cardRequestData } = useCardRequestStore();
@@ -21,12 +22,20 @@ const CardRequest = () => {
   };
 
   useEffect(() => {
+    let filteredCardRequests = cardRequestData;
+
+    if (searchString) {
+      filteredCardRequests = cardRequestData.filter((request) =>
+        request.branch.toLowerCase().includes(searchString.toLowerCase())
+      );
+    }
+
     // Calculate the start and end index for the current page
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     // Update the current items
-    setCurrentItems(cardRequestData.slice(startIndex, endIndex));
-  }, [currentPage, itemsPerPage, cardRequestData]);
+    setCurrentItems(filteredCardRequests.slice(startIndex, endIndex));
+  }, [currentPage, itemsPerPage, cardRequestData, searchString]);
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -39,6 +48,8 @@ const CardRequest = () => {
             alt="search"
           />
           <input
+            value={searchString}
+            onChange={(e) => setSearchString(e.target.value)}
             className="w-full outline-none border-none bg-transparent placeholder:text-xs md:placeholder:text-base"
             type="text"
             placeholder="Search by branch"
