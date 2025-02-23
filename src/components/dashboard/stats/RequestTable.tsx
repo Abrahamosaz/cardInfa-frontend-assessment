@@ -87,9 +87,9 @@ const RequestTable = () => {
                     <th
                       key={header.id}
                       className={classNames(
-                        "px-6 py-3 text-xs font-mediumuppercase tracking-wider",
+                        "px-6 py-3 text-xs font-medium uppercase tracking-wider",
                         {
-                          "sticky left-0 z-20 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] text-left":
+                          "sticky left-0 z-20 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] text-left bg-[#F1F9FF]":
                             index === 0,
                           "text-center": index !== 0,
                         }
@@ -113,7 +113,7 @@ const RequestTable = () => {
                       className={classNames(
                         "px-6 py-2 whitespace-nowrap text-sm",
                         {
-                          "sticky left-0 z-20 bg-white shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] text-left":
+                          "sticky left-0 z-20 bg-white shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] text-left before:absolute before:top-0 before:right-[-5px] before:bottom-0 before:w-[5px] before:bg-white":
                             index === 0,
                           "text-center": index !== 0,
                         }
